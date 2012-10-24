@@ -10,18 +10,6 @@
 // --------
 // For clearing floats like a boss h5bp.com/q
 .clearfix {
-  *zoom: 1;
-  &:before,
-  &:after {
-    display: table;
-    content: "";
-    // Fixes Opera/contenteditable bug:
-    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
-    line-height: 0;
-  }
-  &:after {
-    clear: both;
-  }
 }
 
 // Webkit-style focus
@@ -55,7 +43,7 @@
 // right version is for icons, which come before. Applying both is ok, but it will
 // mean that space between those elements will be .6em (~2 space characters) in IE7,
 // instead of the 1 space in other browsers.
-.ie7-restore-left-whitespace() {
+.ie7-restore-left-whitespace() {// ¡¡¡ No change !!!
   *margin-left: .3em;
 
   &:first-child {
@@ -63,8 +51,11 @@
   }
 }
 
-.ie7-restore-right-whitespace() {
+.ie7-restore-right-whitespace() { /// ¡¡¡ No change !!!
   *margin-right: .3em;
+  &:first-child {
+    *margin-right: 0;
+  }
 }
 
 // Sizing shortcuts
@@ -534,22 +525,23 @@
 }
 
 // Table columns
-.tableColumns(@columnSpan: 1) {
+.tableColumns(@columnSpan: 1) { //rtl
   float: none; // undo default grid column styles
   width: ((@gridColumnWidth) * @columnSpan) + (@gridGutterWidth * (@columnSpan - 1)) - 16; // 16 is total padding on left and right of table cells
-  margin-left: 0; // undo default grid column styles
+  margin-left: auto;
+  margin-right: 0; // undo default grid column styles
 }
 
 // Make a Grid
 // Use .makeRow and .makeColumn to assign semantic layouts grid system behavior
-.makeRow() {
-  margin-left: @gridGutterWidth * -1;
-  .clearfix();
+.makeRow() { //rtl
+  margin-left: 0;
+  margin-right: @gridGutterWidth * -1;
 }
-.makeColumn(@columns: 1, @offset: 0) {
-  float: left;
-  margin-left: (@gridColumnWidth * @offset) + (@gridGutterWidth * (@offset - 1)) + (@gridGutterWidth * 2);
-  width: (@gridColumnWidth * @columns) + (@gridGutterWidth * (@columns - 1));
+.makeColumn(@columns: 1, @offset: 0) { //rtl
+  float: right;
+  margin-left:0;
+  margin-right: (@gridColumnWidth * @offset) + (@gridGutterWidth * (@offset - 1)) + (@gridGutterWidth * 2);
 }
 
 // The Grid
@@ -569,23 +561,25 @@
     }
     .offsetX (0) {}
 
-    .offset (@columns) {
-      margin-left: (@gridColumnWidth * @columns) + (@gridGutterWidth * (@columns + 1));
+    .offset (@columns) { //rlt
+      margin-left: 0;
+      margin-right: (@gridColumnWidth * @columns) + (@gridGutterWidth * (@columns + 1));
     }
 
     .span (@columns) {
       width: (@gridColumnWidth * @columns) + (@gridGutterWidth * (@columns - 1));
     }
 
-    .row {
-      margin-left: @gridGutterWidth * -1;
+    .row {//rlt
+      margin-left: 0;
+      margin-right: @gridGutterWidth * -1;
       .clearfix();
     }
 
-    [class*="span"] {
-      float: left;
-      min-height: 1px; // prevent collapsing columns
-      margin-left: @gridGutterWidth;
+    [class*="span"] {//rlt
+      float: right;
+      margin-left: 0px;
+      margin-right: @gridGutterWidth;
     }
 
     // Set the container width, and override it for fixed navbars in media queries
@@ -615,14 +609,18 @@
     }
     .offsetX (0) {}
 
-    .offset (@columns) {
-      margin-left: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) + (@fluidGridGutterWidth*2);
-  	  *margin-left: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) - (.5 / @gridRowWidth * 100 * 1%) + (@fluidGridGutterWidth*2) - (.5 / @gridRowWidth * 100 * 1%);
+    .offset (@columns) { //rlt
+      margin-left: 0;
+      *margin-left: 0;
+      margin-right: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) + (@fluidGridGutterWidth*2);
+  	  *margin-right: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) - (.5 / @gridRowWidth * 100 * 1%) + (@fluidGridGutterWidth*2) - (.5 / @gridRowWidth * 100 * 1%);
     }
 
-    .offsetFirstChild (@columns) {
-      margin-left: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) + (@fluidGridGutterWidth);
-      *margin-left: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) - (.5 / @gridRowWidth * 100 * 1%) + @fluidGridGutterWidth - (.5 / @gridRowWidth * 100 * 1%);
+    .offsetFirstChild (@columns) {//rtl
+      margin-left: 0;
+      *margin-left: 0;
+      margin-right: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) + (@fluidGridGutterWidth);
+      *margin-right: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) - (.5 / @gridRowWidth * 100 * 1%) + @fluidGridGutterWidth - (.5 / @gridRowWidth * 100 * 1%);
     }
 
     .span (@columns) {
@@ -630,17 +628,16 @@
       *width: (@fluidGridColumnWidth * @columns) + (@fluidGridGutterWidth * (@columns - 1)) - (.5 / @gridRowWidth * 100 * 1%);
     }
 
-    .row-fluid {
-      width: 100%;
-      .clearfix();
+    .row-fluid { //rtl
       [class*="span"] {
-        .input-block-level();
-        float: left;
-        margin-left: @fluidGridGutterWidth;
-        *margin-left: @fluidGridGutterWidth - (.5 / @gridRowWidth * 100 * 1%);
+        float: right;
+        margin-left: 0;
+        *margin-left: 0;
+        margin-right: @fluidGridGutterWidth;
+        *margin-right: @fluidGridGutterWidth - (.5 / @gridRowWidth * 100 * 1%);
       }
       [class*="span"]:first-child {
-        margin-left: 0;
+        margin-right: 0;
       }
 
       // generate .spanX and .offsetX
@@ -664,13 +661,13 @@
 
     input,
     textarea,
-    .uneditable-input {
-      margin-left: 0; // override margin-left from core grid system
+    .uneditable-input {//rlt
+      margin-right: 0; // override margin-left from core grid system
     }
 
     // Space grid-sized controls properly if multiple per line
-    .controls-row [class*="span"] + [class*="span"] {
-      margin-left: @gridGutterWidth;
+    .controls-row [class*="span"] + [class*="span"] { //rlt
+      margin-right: @gridGutterWidth;
     }
 
     // generate .spanX
