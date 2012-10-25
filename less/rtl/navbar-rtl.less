@@ -13,8 +13,8 @@
 // Inner for background effects
 // Gradient is applied to its own element because overflow visible is not honored by IE when filter is present
 .navbar-inner { //rtl
-  padding-left:  20px;
   padding-right: 20px;
+  padding-left:  20px;
 }
 
 // Set width to auto for default container
@@ -29,7 +29,7 @@
 
 // Brand: website or project name
 // -------------------------
-.navbar .brand {
+.navbar .brand {//rtl
   float: right;
   margin-left: 0;
   margin-right: -20px; // negative indent to left-align the text down the page
@@ -115,7 +115,7 @@
 
 // Shared (top/bottom) styles
 .navbar-fixed-top,
-.navbar-fixed-bottom {
+.navbar-fixed-bottom {//rtl
   right: 0;
   left: 0;
 }
@@ -125,7 +125,7 @@
 .navbar-fixed-bottom .navbar-inner {
 }
 .navbar-fixed-top .navbar-inner,
-.navbar-fixed-bottom .navbar-inner {
+.navbar-fixed-bottom .navbar-inner {//rtl
   padding-left:  0;
   padding-right: 0;
 }
@@ -150,7 +150,6 @@
 
 // Fixed to bottom
 .navbar-fixed-bottom {
-  bottom: 0;
   .navbar-inner {
     .box-shadow(inset 0 1px 0 rgba(0,0,0,.1), 0 -1px 10px rgba(0,0,0,.1));
   }
@@ -295,7 +294,7 @@
   }
 
   // Dividers in navbar
-  .divider-vertical {
+  .divider-vertical {//rtl
     border-right-color: @navbarInverseBackground;
     border-left-color: @navbarInverseBackgroundHighlight;
   }
@@ -317,7 +316,7 @@
     .search-query {
       &:focus,
       &.focused {
-        padding: 5px 15px;
+
       }
     }
   }
